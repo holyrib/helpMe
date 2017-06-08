@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link href="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/css/bootstrap.min.css" rel="stylesheet" /> 
+	<link href="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/css/bootstrap-theme.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/css/index.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+</head>
+<body ng-app="helpMeMdl" ng-controller="helpMeCtrl as ctrl" ng-init="ctrl.init()">
+<div class="login" ng-if="ctrl.state == 0">
+<div class="container" ng-if="ctrl.state == 0">
+
+		<div class="row vertical-offset-100">
+			<div class="col-md-4 col-md-offset-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">                                
+						<div class="row-fluid user-row">
+							<img src="http://s11.postimg.org/7kzgji28v/logo_sm_2_mr_1.png" class="img-responsive" alt="Conxole Admin"/>
+						</div>
+					</div>
+					<div class="panel-body">
+						<form accept-charset="UTF-8" role="form" class="form-signin">
+							<fieldset>
+							<label class="panel-login">
+								<div class="login_result">
+								</div>
+							</label>
+							<input class="form-control" placeholder="Username" id="username" type="text" ng-model="ctrl.user.name" />
+
+							<div class="form-group">
+								<input type="password" placeholder="Password" class="form-control" id="pwd ng-model="ctrl.user.name"">
+								<br></br>
+							</div>
+
+							<a href=""></a><input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login »" ng-click="ctrl.login()">
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+			
+
+
+<nav class="navbar navbar-inverse" ng-if="ctrl.state != 0">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <i class="navbar-brand fa fa-wrench fa-3x" aria-hidden="true"></i>
+
+      <!-- <a class="navbar-brand" href="#"><img src="#"></a> -->
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+          
+        </li>
+        
+        <li><a href="#" ng-click="ctrl.deleteAll()" style="red">Delete</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+          <form class="navbar-form navbar-left">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search">
+    <div class="input-group-btn">
+      <button class="btn btn-default" type="submit">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </div>
+  </div>
+</form>
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<div class="jumbotron" ng-if="ctrl.state != 0">
+  <h1 class="text-center">Hello!</h1>
+  <p class="text-center">This is a simple order-request site, post your ouwn request to find helpers.</p>
+  <p class="text-center"><a class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal" href="#" role="button" ng-click="ctrl.create()">Add your request!</a></p>
+</div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    	<div class="modal-content">
+     		<div class="modal-header">
+        		<button type="button" class="close" data-dismiss="modal">&times;</button>
+        		<h4 class="modal-title">Modal Header</h4>
+        	</div>
+        	<div class="modal-body">
+        		<div class="panel panel-success" ng-if="ctrl.state == 2">
+					<div class="panel-heading">Create new ticket</div>
+						<div class="panel-body">
+							<p><b>Title: </b> <input type="text" 
+													  class="form-control"
+													  ng-model="ctrl.nwTicket.Head"/>
+							</p>
+							<p>
+								<b>Body</b> <textarea class="form-control"
+													  ng-model="ctrl.nwTicket.Body"></textarea>
+							</p>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								 
+								<div class="col-md-12">
+            						<button type="button" data-dismiss="modal" ng-click="ctrl.submit()" class="btn btn-labeled btn-success" >
+                					<span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Submit</button>
+       								
+								</div>
+							</div>	
+						</div>
+					</div>
+        			<div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        			</div>
+    			</div>
+    		</div>
+  		</div>
+  	</div>
+</div>
+
+
+
+<div class="col-lg-6 col-md-6" ng-repeat="item in ctrl.tickets" ng-class="{'panel-primary': item.Guid == ctrl.selectedTicket.Guid, 'panel-default': item.Guid != ctrl.selectedTicket.Guid}"
+					 >
+             <aside>
+                
+                <div class="content-title" ng-click="ctrl.select(item)">
+				<div class="text-center">
+				<h3><a href="#">{{item.Head}}</a></h3>
+				</div>
+				</div>
+				<div class="content-footer">
+				<img class="user-small-img" src="https://www.atomix.com.au/media/2015/06/atomix_user31.png">
+				<span style="font-size: 16px;color: #fff;"><b>Author: </b> {{item.AuthorName}}</span>
+				<span class="pull-right">
+				<a href="#" data-toggle="tooltip" data-placement="left" title="Comments"><i class="fa fa-comments" ></i> 30</a>
+				<!-- <a id="menu-toggle" href="#"><i class="fa fa-heart-o"></i></a> -->
+               
+				<a href="#" data-toggle="tooltip" data-placement="right" title="Loved"><i class="fa fa-heart"></i> 20</a>                  
+				</span>
+                    <div class="user-ditels">
+                    <div class="user-img"><img src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" class="img-responsive"></div>
+                        <span class="user-full-ditels">
+                        <h3>{{item.Body}}</h3>
+                        <p>Posted today</p>
+                        </span>
+                        <div class="social-icon">
+						<a href="#"><i class="fa fa-facebook" data-toggle="tooltip" data-placement="bottom" title="Facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter" data-toggle="tooltip" data-placement="bottom" title="Twitter"></i></a>
+						<a href="#"><i class="fa fa-google-plus" data-toggle="tooltip" data-placement="bottom" title="Google Plus"></i></a>
+						<a href="#"><i class="fa fa-youtube" data-toggle="tooltip" data-placement="bottom" title="Youtube"></i></a>
+						<a href="#"><i class="fa fa-github" data-toggle="tooltip" data-placement="bottom" title="Github"></i></a>				
+					</div>
+                    </div>
+				</div>
+             </aside>
+            </div>   
+
+
+
+
+
+
+
+
+
+			<div class="col-md-8" ng-if="ctrl.state == 3">
+				<h2>Details: </h2>
+				<div class="panel panel-success">
+					<div class="panel-heading">{{ctrl.selectedTicket.AuthorName}}: {{ctrl.selectedTicket.Head}}</div>
+					<div class="panel-body">
+						<p>
+							<b>Body: </b>
+						</p>
+						<p>
+							{{ctrl.selectedTicket.Body}}
+						</p>
+						<hr />
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Author</th>
+									<th>Message</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in ctrl.selectedTicket.Comments">
+									<td>{{item.AuthorName}}</td>
+									<td>{{item.Message}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col-md-8">
+								<input type="text" ng-model="ctrl.nwComment" class="form-control" />
+							</div>
+							<div class="col-md-4">
+								<a href="#" ng-click="ctrl.createComment()"><span class="glyphicon glyphicon-save text-success"></span> Submit</a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Scripts -->
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/like.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/jquery-1.10.2.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/jquery.signalR-2.1.2.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/hubs.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/angular.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/bootstrap.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/helpMeService.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/helpMeController.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/index.js"></script>
+	
+	<script src="https://use.fontawesome.com/07b0ce5d10.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>page</title>
+	<meta charset="utf-8" />
+	<title></title>
+	<link href="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/css/bootstrap.min.css" rel="stylesheet" /> 
+	<link href="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/css/bootstrap-theme.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/css/index.css">
+</head>
+<body ng-app="helpMeMdl" ng-controller="helpMeCtrl as ctrl" ng-init="ctrl.init()">
+		<div class="panel panel-success" ng-if="ctrl.state == 2">
+					<div class="panel-heading">Create new ticket</div>
+					<div class="panel-body">
+						<p>
+							<b>Title: </b> <input type="text" 
+												  class="form-control"
+												  ng-model="ctrl.nwTicket.Head"/>
+						</p>
+						<p>
+							<b>Body</b> <textarea class="form-control"
+												  ng-model="ctrl.nwTicket.Body"></textarea>
+						</p>
+					</div>
+					<div class="panel-footer">
+						<a href="#" ng-click="ctrl.submit()"><span class="glyphicon glyphicon-save text-success"></span> Submit</a>
+					</div>
+				</div>
+
+				<div ng-repeat="item in ctrl.tickets"
+					 class="panel"
+					 ng-class="{'panel-primary': item.Guid == ctrl.selectedTicket.Guid, 'panel-default': item.Guid != ctrl.selectedTicket.Guid}"
+					 ng-click="ctrl.select(item)">
+					<div class="panel-heading">{{item.Head}}</div>
+					<div class="panel-body">
+						{{item.Body}}
+					</div>
+					<div class="panel-footer">
+						<b>Author: </b> {{item.AuthorName}}
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-md-8" ng-if="ctrl.state == 3">
+				<h2>Details: </h2>
+				<div class="panel panel-success">
+					<div class="panel-heading">{{ctrl.selectedTicket.AuthorName}}: {{ctrl.selectedTicket.Head}}</div>
+					<div class="panel-body">
+						<p>
+							<b>Body: </b>
+						</p>
+						<p>
+							{{ctrl.selectedTicket.Body}}
+						</p>
+						<hr />
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Author</th>
+									<th>Message</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="item in ctrl.selectedTicket.Comments">
+									<td>{{item.AuthorName}}</td>
+									<td>{{item.Message}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col-md-8">
+								<input type="text" ng-model="ctrl.nwComment" class="form-control" />
+							</div>
+							<div class="col-md-4">
+								<a href="#" ng-click="ctrl.createComment()"><span class="glyphicon glyphicon-save text-success"></span> Submit</a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	div class="container">
+  <h2>Large Modal</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Large Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>This is a large modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+	<!-- Scripts -->
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/jquery-1.10.2.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/jquery.signalR-2.1.2.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/hubs.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/angular.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/bootstrap.min.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/helpMeService.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/helpMeController.js"></script>
+	<script src="/Users/Aurelis/Downloads/kbtuStudents-master/helpMe/wwwroot/js/index.js"></script>
+
+</body>
+</html>
